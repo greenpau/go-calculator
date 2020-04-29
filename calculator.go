@@ -281,6 +281,13 @@ func (c *Cell) StandardDeviation() *Cell {
 		return c
 	}
 
+	if !c.calculatedVariance {
+		c.Variance()
+		if c.err != nil {
+			return c
+		}
+	}
+
 	c.Register.StandardDeviation = math.Sqrt(c.Register.Variance)
 	c.calculatedStandardDeviation = true
 	return c
