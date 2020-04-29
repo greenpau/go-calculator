@@ -4,7 +4,8 @@
 <a href="https://pkg.go.dev/github.com/greenpau/go-calculator" target="_blank"><img src="https://img.shields.io/badge/godoc-reference-blue.svg"></a>
 ![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
 
-Go package to calculate total, mean (average), median, mode, range, etc.
+Go package to calculate total, mean (average), median, sorted median,
+variance, range, min, max, modes, standard deviation, etc.
 
 ## Getting Started
 
