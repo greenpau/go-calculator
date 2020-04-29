@@ -6,6 +6,8 @@ package calculator
 import (
 	"math"
 	"sort"
+	"strconv"
+	"strings"
 )
 
 // Cell provides the facility to perform mathematical operations.
@@ -344,6 +346,23 @@ func NewInt(data []int) *Cell {
 	arr := []float64{}
 	for _, i := range data {
 		arr = append(arr, float64(i))
+	}
+	return New(arr)
+}
+
+// NewString returns an instance of Cell from string array.
+func NewString(s string) *Cell {
+	arr := []float64{}
+	for _, i := range strings.Split(s, ",") {
+		i := strings.TrimSpace(i)
+		if !strings.Contains(i, ".") {
+			i = i + ".0"
+		}
+		j, err := strconv.ParseFloat(i, 64)
+		if err != nil {
+			return nil
+		}
+		arr = append(arr, j)
 	}
 	return New(arr)
 }

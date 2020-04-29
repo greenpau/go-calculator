@@ -159,3 +159,27 @@ func TestUint64Calculator(t *testing.T) {
 		t.Fatalf("Failed %d tests", testFailed)
 	}
 }
+
+func TestNewCalculator(t *testing.T) {
+	if calc := NewString("1, 2, 3, 4.5, 5.4, 6, 7"); calc == nil {
+		t.Fatalf("Failed to initialize calculator from string")
+	}
+	if calc := NewUint64([]uint64{1, 2, 3, 4, 5, 6, 7}); calc == nil {
+		t.Fatalf("Failed to initialize calculator from uint64 array")
+	}
+	if calc := NewInt64([]int64{1, 2, 3, 4, 5, 6, 7}); calc == nil {
+		t.Fatalf("Failed to initialize calculator from int64 array")
+	}
+	if calc := NewUint32([]uint32{1, 2, 3, 4, 5, 6, 7}); calc == nil {
+		t.Fatalf("Failed to initialize calculator from uint32 array")
+	}
+	if calc := NewInt32([]int32{1, 2, 3, 4, 5, 6, 7}); calc == nil {
+		t.Fatalf("Failed to initialize calculator from int32 array")
+	}
+	if calc := NewUint([]uint{1, 2, 3, 4, 5, 6, 7}); calc == nil {
+		t.Fatalf("Failed to initialize calculator from uint array")
+	}
+	if calc := NewInt([]int{1, 2, 3, 4, 5, 6, 7}); calc == nil {
+		t.Fatalf("Failed to initialize calculator from int array")
+	}
+}
