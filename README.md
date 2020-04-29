@@ -19,17 +19,19 @@ import (
 Next, initialize calculator in any of the following ways:
 
 ```golang
+calc, _ := calculator.NewString("1, 2, 3, 4.5, 5.4, 6, 7")
+
 arr := []uint64{1, 2, 3, 4, 5, 6, 7}
-calc := calculator.NewUint64(arr)
+calc, _ := calculator.NewUint64(arr)
 
 arr := []int64{1, 2, 3, 4, 5, 6, 7}
-calc := calculator.NewInt64(arr)
+calc, _ := calculator.NewInt64(arr)
 
 arr := []int{1, 2, 3, 4, 5, 6, 7}
-calc := calculator.NewInt(arr)
+calc, _ := calculator.NewInt(arr)
 
 arr := []float64{1, 2, 3, 4, 5, 6, 7}
-calc := calculator.NewFloat64(arr)
+calc, _ := calculator.NewFloat64(arr)
 ```
 
 Next, calculate total, mean (average), median, mode, range
