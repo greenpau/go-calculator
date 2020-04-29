@@ -4,10 +4,12 @@
 package calculator
 
 import (
+	"fmt"
 	"math"
 	"sort"
 	"strconv"
 	"strings"
+	"unicode"
 )
 
 // Cell provides the facility to perform mathematical operations.
@@ -228,6 +230,11 @@ func (c *Cell) Modes() *Cell {
 			c.Register.ModeRepeatCount = occurences[i]
 		}
 	}
+	if len(occurences) == c.length {
+		c.Register.ModeRepeatCount = 0
+		c.calculatedModes = true
+		return c
+	}
 	for i, v := range occurences {
 		if v == c.Register.ModeRepeatCount {
 			c.Register.Modes = append(c.Register.Modes, i)
@@ -240,6 +247,13 @@ func (c *Cell) Modes() *Cell {
 // Median calculates median of the values in Cell.
 func (c *Cell) Median(sorted bool) *Cell {
 	if (!sorted && c.calculatedMedian) || (sorted && c.calculatedSortedMedian) || c.err != nil {
+		return c
+	}
+	if c.length == 1 {
+		c.Register.SortedMedian = c.data[0]
+		c.Register.Median = c.data[0]
+		c.calculatedSortedMedian = true
+		c.calculatedMedian = true
 		return c
 	}
 
@@ -397,4 +411,44 @@ func (c *Cell) Failed() bool {
 		return true
 	}
 	return false
+}
+
+func addNewLines(s string, max int) string {
+	if len(s) > max {
+		var sb strings.Builder
+		var j int
+		for _, c := range s {
+			if unicode.IsSpace(c) {
+				if j > max {
+					sb.WriteString("\n  ")
+					j = 2
+				}
+			}
+			sb.WriteRune(c)
+			j++
+		}
+		return sb.String()
+	}
+	return s
+}
+
+// Print returns a string with the contents of a Cell
+func (c *Cell) Print() string {
+	maxWidth := 40
+	var sb strings.Builder
+	sb.WriteString(addNewLines(fmt.Sprintf("Data: %v", c.data), maxWidth))
+	sb.WriteString(fmt.Sprintf("\nTotal: %f", c.Register.Total))
+	sb.WriteString(fmt.Sprintf("\nMean: %f", c.Register.Mean))
+	sb.WriteString(fmt.Sprintf("\nMedian: %f", c.Register.Median))
+	sb.WriteString(fmt.Sprintf("\nSorted Median: %f", c.Register.SortedMedian))
+	sb.WriteString(fmt.Sprintf("\nMax: %f", c.Register.MaxValue))
+	sb.WriteString(addNewLines(fmt.Sprintf("\nMax Indices: %v", c.Register.MaxIndices), maxWidth))
+	sb.WriteString(fmt.Sprintf("\nMin: %f", c.Register.MinValue))
+	sb.WriteString(addNewLines(fmt.Sprintf("\nMin Indices: %v", c.Register.MinIndices), maxWidth))
+	sb.WriteString(fmt.Sprintf("\nVariance: %f", c.Register.Variance))
+	sb.WriteString(fmt.Sprintf("\nStandard Deviation: %f", c.Register.StandardDeviation))
+	sb.WriteString(addNewLines(fmt.Sprintf("\nModes: %v", c.Register.Modes), maxWidth))
+	sb.WriteString(fmt.Sprintf("\nMode Repeat Count: %d", c.Register.ModeRepeatCount))
+
+	return sb.String()
 }

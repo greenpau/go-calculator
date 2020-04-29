@@ -4,6 +4,7 @@ package calculator
 
 import (
 	"fmt"
+	"math/rand"
 	"testing"
 )
 
@@ -160,6 +161,31 @@ func TestUint64Calculator(t *testing.T) {
 	}
 }
 
+func TestPrintCalculator(t *testing.T) {
+	for i := 0; i < 10; i++ {
+		arr := []int{}
+		for j := 0; j < rand.Intn(100); j++ {
+			arr = append(arr, rand.Intn(1000000))
+		}
+		if len(arr) == 0 {
+			continue
+		}
+		t.Logf("Starting dataset #%d, input:\nData: %v", i, arr)
+		calc := NewInt(arr)
+		if calc == nil {
+			t.Fatalf("Failed to initialize calculator from int array")
+		}
+		calc.RunAll()
+		calc.RunAll()
+		if calc.Failed() {
+			t.Logf("\n%s\n", calc.Print())
+			t.Fatalf("Failed to perform calculations")
+		}
+		t.Logf("Dataset %d:\n%s\n", i, calc.Print())
+	}
+
+}
+
 func TestNewCalculator(t *testing.T) {
 	if calc := NewString("1, 2, 3, 4.5, 5.4, 6, 7"); calc == nil {
 		t.Fatalf("Failed to initialize calculator from string")
@@ -169,7 +195,18 @@ func TestNewCalculator(t *testing.T) {
 		if calc.Failed() {
 			t.Fatalf("Failed to perform calculations")
 		}
+		t.Logf("\n%s\n", calc.Print())
 	}
+	if calc := NewString("0, 0, 0, 0, 0"); calc == nil {
+		t.Fatalf("Failed to initialize calculator from string")
+	} else {
+		calc.RunAll()
+		calc.RunAll()
+		if calc.Failed() {
+			t.Fatalf("Failed to perform calculations")
+		}
+	}
+
 	if calc := NewUint64([]uint64{1, 2, 3, 4, 5, 6, 7}); calc == nil {
 		t.Fatalf("Failed to initialize calculator from uint64 array")
 	}

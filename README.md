@@ -48,6 +48,8 @@ calc.Variance()
 calc.Range()
 calc.Max()
 calc.Min()
+calc.MaxWithIndices()
+calc.MinWithIndices()
 calc.Median(true)
 calc.Median(false)
 calc.Mean()
@@ -64,4 +66,24 @@ Get the result of the calculations.
 
 ```golang
 fmt.Fprintf(os.Stdout, "Total: %.2f\n", calc.Register.Total)
+```
+
+The `Print()` function helps visualize the data:
+
+```
+Data: [554801 61602 763767 277578 167822 617342
+  847743 801166 894535 254904 354657 389371
+  543430]
+Total: 6528718.000000
+Mean: 502209.076923
+Median: 732542.500000
+Sorted Median: 466400.500000
+Max: 894535.000000
+Max Indices: [8]
+Min: 61602.000000
+Min Indices: [1]
+Variance: 69299542922.378693
+Standard Deviation: 0.000000
+Modes: []
+Mode Repeat Count: 0
 ```
