@@ -282,8 +282,8 @@ func (c *Cell) RunAll() *Cell {
 	c.StandardDeviation()
 	c.Variance()
 	c.Range()
-	c.Max()
-	c.Min()
+	c.MaxWithIndices()
+	c.MinWithIndices()
 	c.Median(true)
 	c.Median(false)
 	c.Mean()
@@ -379,6 +379,7 @@ func New(data []float64) *Cell {
 		length: len(data),
 		even:   false,
 	}
+
 	c.sortedData = make([]float64, c.length)
 	copy(c.sortedData, c.data)
 	sort.Float64s(c.sortedData)
@@ -388,4 +389,12 @@ func New(data []float64) *Cell {
 	}
 	c.middleIndex = int(modInt / 2)
 	return c
+}
+
+// Failed returns true if one or more calculations failed.
+func (c *Cell) Failed() bool {
+	if c.err != nil {
+		return true
+	}
+	return false
 }

@@ -163,6 +163,12 @@ func TestUint64Calculator(t *testing.T) {
 func TestNewCalculator(t *testing.T) {
 	if calc := NewString("1, 2, 3, 4.5, 5.4, 6, 7"); calc == nil {
 		t.Fatalf("Failed to initialize calculator from string")
+	} else {
+		calc.RunAll()
+		calc.RunAll()
+		if calc.Failed() {
+			t.Fatalf("Failed to perform calculations")
+		}
 	}
 	if calc := NewUint64([]uint64{1, 2, 3, 4, 5, 6, 7}); calc == nil {
 		t.Fatalf("Failed to initialize calculator from uint64 array")
