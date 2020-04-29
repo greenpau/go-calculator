@@ -30,10 +30,8 @@ jobs:
     - name: Install Go modules
       run: |
         mkdir -p .coverage
-        go install golang.org/x/lint/golint
     - name: Run tests
       run: |
-        golint -set_exit_status *.go
         go test -v -coverprofile=.coverage/coverage.out ./*.go
         go tool cover -html=.coverage/coverage.out -o .coverage/coverage.html
         go test -covermode=count -coverprofile=.coverage/coverage.out ./*.go

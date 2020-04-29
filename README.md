@@ -4,7 +4,7 @@
 <a href="https://pkg.go.dev/github.com/greenpau/go-calculator" target="_blank"><img src="https://img.shields.io/badge/godoc-reference-blue.svg"></a>
 ![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
 
-Calculate total, mean (average), median, mode, and range.
+Go package to calculate total, mean (average), median, mode, range, etc.
 
 ## Getting Started
 
@@ -38,21 +38,26 @@ Next, calculate total, mean (average), median, mode, range
 using the `calc` instance:
 
 ```golang
-result := calc.Total()
-result := calc.Mean()
-result := calc.Average() // shortcut to Mean()
-result := calc.Median()
-result := calc.Mode()
-result := calc.Range()
+c.Total()
+c.StandardDeviation()
+c.Variance()
+c.Range()
+c.Max()
+c.Min()
+c.Median(true)
+c.Median(false)
+c.Mean()
+c.Modes()
 ```
 
-The `result` is also an object. It is capable outputing `uint64`, `int64`,
-`int`, or `float64`.
+Alternatively, simply perform all calculations:
+
+```
+calc.RunAll()
+```
+
+Get the result of the calculations.
 
 ```golang
-fmt.Fprintf(os.Stdout, "Total (string): %d\n", calc.Total().String())
-fmt.Fprintf(os.Stdout, "Total (uint64): %d\n", calc.Total().Uint64())
-fmt.Fprintf(os.Stdout, "Total (int64): %d\n", calc.Total().Int64())
-fmt.Fprintf(os.Stdout, "Total (int): %d\n", calc.Total().Int())
-fmt.Fprintf(os.Stdout, "Total (float64): %.2f\n", calc.Total().Float64())
+fmt.Fprintf(os.Stdout, "Total: %.2f\n", calc.Register.Total)
 ```
