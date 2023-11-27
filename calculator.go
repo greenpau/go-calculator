@@ -186,7 +186,7 @@ func (c *Cell) Min() *Cell {
 		return c
 	}
 	c.Register.MinValue = c.sortedData[0]
-	c.calculatedMax = true
+	c.calculatedMin = true
 	return c
 }
 
